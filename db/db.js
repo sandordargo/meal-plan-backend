@@ -1,7 +1,6 @@
 const MongoClient = require("mongodb").MongoClient;
 
-const dbConnectionUrl = "mongodb+srv://rest-api-user:MyRecipes2020@recipes-iblou.mongodb.net/test?retryWrites=true&w=majority";
-// const dbConnectionUrl = "mongodb://127.0.0.1:27017";
+const dbConnectionUrl = process.env.MONGO_URI;
 
 var dbObject;
 var dbCollection;
