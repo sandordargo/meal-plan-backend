@@ -22,8 +22,8 @@ const port = 4000;
 // var database, collection;
 var collection;
 
-var listener = app.listen(8888, function(){
-  console.log('Listening on port ' + listener.address().port); //Listening on port 8888
+var listener = app.listen(process.env.PORT || 5000, function(){
+  console.log('Listening on port ' + listener.address().port); //Listening on port 5000
 });
 
 db.initialize(DATABASE_NAME, collectionName, function(dbCollection) { // successCallback
