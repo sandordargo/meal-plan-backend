@@ -5,10 +5,13 @@
   "scripts": {
     "start": "node app.js"
   },
-  "engines" : { "node" : ">=13.7.0" },
+  "engines": {
+    "node": ">=13.7.0"
+  },
   "dependencies": {
     "commander": "^4.1.1",
     "cookie-parser": "~1.4.4",
+    "cors": "^2.8.5",
     "debug": "~2.6.9",
     "express": "~4.16.1",
     "http-errors": "~1.6.3",

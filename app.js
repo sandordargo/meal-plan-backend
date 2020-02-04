@@ -2,6 +2,7 @@
 // import db from './db/db'
 // https://nordicapis.com/building-a-restful-api-using-node-js-and-mongodb/
 var createError = require('http-errors');
+var cors = require('cors');
 var express = require('express');
 const MongoClient = require("mongodb").MongoClient;
 
@@ -17,6 +18,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 var app = express();
+app.use(cors());
 const port = 4000;
 
 // var database, collection;
