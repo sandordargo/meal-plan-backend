@@ -79,6 +79,24 @@ app.get('/api/recipes/random', (req, res) => {
   });
 });
 
+
+app.get('/api/recipes/random/recurring', (req, res) => {
+  var difficulty = req.query.difficulty;
+  //support other query parameters
+  var rawCategories = req.query.categories ? req.query.categories : "";
+  var categories = rawCategories.split(',').filter(i => i);
+  db.getRandomRecurringRecipe(difficulty, categories).then(function (items) {
+    console.info('The promise was fulfilled with items!', items);
+    res.status(200).send({
+      success: 'true',
+      message: 'recipes retreived successfully',
+      recipes: items
+    });
+  }, function(err) {
+    console.error('The promise was rejected', err, err.stack);
+  });
+});
+
 // app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
