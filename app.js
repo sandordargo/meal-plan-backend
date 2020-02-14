@@ -112,6 +112,21 @@ app.post('/api/recipes', (req, res) => {
   // res.sendStatus(200);
 });
 
+app.post('/api/recipes/update_next', (req, res) => {
+  console.log('Update next POST body:', req.body);
+  // db.add(req.body);
+  let date = new Date(); // Now
+  date.setDate(date.getDate() + req.body.period); // Set now + 30 days as the new date
+  const nextDateStr =  date.toISOString().split('T')[0];
+  collection.update({"name": req.body.name}, {$set: {"next_earliest": new Date(nextDateStr)}}, (error, result) => {
+    if (error) {
+      return res.status(500).send(error);
+    }
+    res.send(result.result);
+  });
+  // res.sendStatus(200);
+});
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');

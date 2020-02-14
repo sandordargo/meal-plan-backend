@@ -146,6 +146,20 @@ async function  getRandomRecurringRecipe(difficulty, categoriesQ) {
     });
 }
 
+async function updateNextEarliest(name, period) {
+    let date = new Date(); // Now
+    date.setDate(date.getDate() + period); // Set now + 30 days as the new date
+    const nextDateStr =  date.toISOString().split('T')[0];
+    return new Promise(function(resolve, reject) {
+
+        dbCollection.update({"name": name}, {$set: {"next_earliest": new Date(nextDateStr)}}, (error, result) => {
+            if (error) reject(error);
+            console.log(result);
+            resolve(result);
+        });
+    });
+}
+
 
 function count(query) {
 
