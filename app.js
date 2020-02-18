@@ -115,8 +115,8 @@ app.post('/api/recipes', (req, res) => {
 app.post('/api/recipes/update_next', (req, res) => {
   console.log('Update next POST body:', req.body);
   // db.add(req.body);
-  let date = new Date(); // Now
-  date.setDate(date.getDate() + req.body.period); // Set now + 30 days as the new date
+  let date = new Date(req.body.next_earliest); // Now
+  // date.setDate(date.getDate() + req.body.period); // Set now + 30 days as the new date
   const nextDateStr =  date.toISOString().split('T')[0];
   collection.update({"name": req.body.name}, {$set: {"next_earliest": new Date(nextDateStr)}}, (error, result) => {
     if (error) {
