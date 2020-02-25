@@ -65,6 +65,16 @@ function myData(difficulty, categoriesQ) {
     // return matchingRecipes;
 }
 
+async function  getLatest() {
+    return new Promise(function(resolve, reject) {
+
+        dbCollection.find().limit(-1).sort({ $natural: -1 }).limit(5).toArray((error, result) => {
+            if (error) reject(error);
+            console.log(result);
+            resolve(result);
+        });
+    });
+}
 
 async function  getRandomRecipe(difficulty, categoriesQ) {
     var matchingRecipes = recipes;
@@ -197,6 +207,7 @@ recipes = [
 module.exports = {
     initialize,
     myData,
+    getLatest,
     getRandomRecipe,
     getRandomRecurringRecipe,
     add,

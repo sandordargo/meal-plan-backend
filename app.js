@@ -28,6 +28,7 @@ var listener = app.listen(process.env.PORT || 5000, function(){
   console.log('Listening on port ' + listener.address().port); //Listening on port 5000
 });
 
+
 db.initialize(DATABASE_NAME, collectionName, function(dbCollection) { // successCallback
   // get all items
   dbCollection.find().toArray(function(err, result) {
@@ -51,6 +52,19 @@ app.get('/api/recipes', (req, res) => {
 
 
   db.myData(difficulty, categories).then(function (items) {
+    console.info('The promise was fulfilled with items!', items);
+    res.status(200).send({
+      success: 'true',
+      message: 'recipes retreived successfully',
+      recipes: items
+    });
+  }, function(err) {
+    console.error('The promise was rejected', err, err.stack);
+  });
+});
+
+app.get('/api/recipes/latest', (req, res) => {
+  db.getLatest().then(function (items) {
     console.info('The promise was fulfilled with items!', items);
     res.status(200).send({
       success: 'true',

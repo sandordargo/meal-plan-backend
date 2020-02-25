@@ -18,7 +18,7 @@
 - Fill with recipes
 - <strike>Decide on Frontend</strike>
 - <strike>Query for a random recipe: https://stackoverflow.com/questions/2824157/random-record-from-mongodb</strike>
-- Query for a simple recipe
-- Query for a vegan recipe
+- <strike>Query for a simple recipe</strike>
+- <strike>Query for a vegan recipe</strike>
 - Know how to save restore DB
 - Confirmation page# meal-plan-backend
