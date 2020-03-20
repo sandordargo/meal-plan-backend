@@ -76,6 +76,17 @@ async function  getLatest() {
     });
 }
 
+async function  getCategories() {
+    return new Promise(function(resolve, reject) {
+
+        dbCollection.distinct("categories", {}, (error, result) => {
+            if (error) reject(error);
+            console.log(result);
+            resolve(result);
+        });
+    });
+}
+
 async function  getRandomRecipe(difficulty, categoriesQ) {
     var matchingRecipes = recipes;
     console.log("difficulty: " + difficulty);
@@ -207,7 +218,9 @@ recipes = [
 module.exports = {
     initialize,
     myData,
+    getCategories,
     getLatest,
+
     getRandomRecipe,
     getRandomRecurringRecipe,
     add,
