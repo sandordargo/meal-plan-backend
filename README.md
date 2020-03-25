@@ -1,4 +1,4 @@
-![](https://github.com/sandordargo/meal-plan-backend/workflows/nodejs.yml/badge.svg)
+![](https://github.com/sandordargo/meal-plan-backend/workflows/Node.js%20CI/badge.svg)
 
 ## Generate weekly recipes
 - Only weekdays
