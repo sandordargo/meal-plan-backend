@@ -1,3 +1,5 @@
+![](https://github.com/sandordargo/meal-plan-backend/workflows/nodejs.yml/badge.svg)
+
 ## Generate weekly recipes
 - Only weekdays
   - Return three recipes
