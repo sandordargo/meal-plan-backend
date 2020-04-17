@@ -63,6 +63,25 @@ app.get('/api/recipes', (req, res) => {
   });
 });
 
+app.get('/api/anyrecipe', (req, res) => {
+  var difficulty = req.query.difficulty;
+  //support other query parameters
+  var rawCategories = req.query.categories ? req.query.categories : "";
+  var categories = rawCategories.split(',').filter(i => i);
+
+
+  db.anyRecipeWith(difficulty, categories).then(function (items) {
+    console.info('The promise was fulfilled with items!', items);
+    res.status(200).send({
+      success: 'true',
+      message: 'recipes retreived successfully',
+      recipes: items
+    });
+  }, function(err) {
+    console.error('The promise was rejected', err, err.stack);
+  });
+});
+
 app.get('/api/categories', (req, res) => {
    db.getCategories().then(function (items) {
     console.info('The promise was fulfilled with items!', items);

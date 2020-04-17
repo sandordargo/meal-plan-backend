@@ -1,6 +1,6 @@
 const MongoClient = require("mongodb").MongoClient;
 
-const dbConnectionUrl = process.env.MONGO_URI;
+const dbConnectionUrl = process.env.MONGO_URI; // "mongodb://127.0.0.1:27017/?readPreference=primary&appname=MongoDB%20Compass&ssl=false";
 
 var dbObject;
 var dbCollection;
@@ -25,6 +25,44 @@ function initialize(
     });
 }
 
+function anyRecipeWith(difficulty, categoriesQ) {
+
+
+    var matchingRecipes = recipes;
+    console.log("difficulty: " + difficulty);
+    matchingRecipes = difficulty ? matchingRecipes.filter(recipe => recipe['difficulty'] === difficulty) : matchingRecipes;
+
+    console.log("categories:" +  categoriesQ);
+    categoriesQ.forEach(function (category) {
+        console.log("category:" +  category);
+        matchingRecipes = matchingRecipes.filter(recipe => recipe['categories'].includes(category));
+
+    });
+
+    let query = {};
+    if (typeof categoriesQ !== "undefined" && categoriesQ.length) {
+        console.log('categoriesQ', categoriesQ);
+        query.categories={$in : categoriesQ};
+    }
+    if (typeof difficulty !== "undefined" && difficulty !== "") {
+        console.log('diff', difficulty);
+        query.difficulty=difficulty;
+    }
+
+    console.log('query', query);
+    // difficulty=easy&categories=magyar
+    return new Promise(function(resolve, reject) {
+
+        dbCollection.find(query).toArray((error, result) => {
+            if (error) reject(error);
+            console.log(result);
+            resolve(result);
+        });
+    });
+
+
+    // return matchingRecipes;
+}
 
 function myData(difficulty, categoriesQ) {
 
@@ -218,6 +256,7 @@ recipes = [
 module.exports = {
     initialize,
     myData,
+    anyRecipeWith,
     getCategories,
     getLatest,
 
