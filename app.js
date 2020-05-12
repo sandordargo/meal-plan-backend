@@ -5,12 +5,13 @@ var createError = require('http-errors');
 var cors = require('cors');
 var express = require('express');
 const MongoClient = require("mongodb").MongoClient;
-
+var ObjectID = require('mongodb').ObjectID;
 const bodyParser = require('body-parser');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var db = require('./db/db');
+
 const DATABASE_NAME = "Recipes";
 const collectionName = "recipes";
 
@@ -150,6 +151,19 @@ app.post('/api/recipes', (req, res) => {
   console.log('POST body:', req.body);
   // db.add(req.body);
   collection.insert(req.body, (error, result) => {
+    if (error) {
+      return res.status(500).send(error);
+    }
+    res.send(result.result);
+  });
+  // res.sendStatus(200);
+});
+
+app.post('/api/recipes/edit', (req, res) => {
+  console.log('POST body:', req.body);
+  const id  = ObjectID(req.body._id);
+  delete req.body['_id'];
+  collection.replaceOne({"_id": id},  req.body, (error, result) => {
     if (error) {
       return res.status(500).send(error);
     }
