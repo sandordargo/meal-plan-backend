@@ -172,6 +172,20 @@ app.post('/api/recipes/edit', (req, res) => {
   // res.sendStatus(200);
 });
 
+app.delete('/api/recipes/delete', (req, res) => {
+  console.log('POST body:', req.body);
+  const id  = ObjectID(req.body._id);
+  delete req.body['_id'];
+  collection.deleteOne({"_id": id}, (error, result) => {
+    if (error) {
+      return res.status(500).send(error);
+    }
+    res.send(result.result);
+  });
+  // res.sendStatus(200);
+});
+
+
 app.post('/api/recipes/update_next', (req, res) => {
   console.log('Update next POST body:', req.body);
   // db.add(req.body);
