@@ -97,7 +97,12 @@ app.get('/api/categories', (req, res) => {
 });
 
 app.get('/api/recipes/latest', (req, res) => {
-  db.getLatest().then(function (items) {
+  const passedLimit = parseInt(req.query.limit, 10);
+  const limit = isNaN(passedLimit) ? 5 : passedLimit;
+  console.info("limit: ", req.query.limit);
+  console.info("parsed limit: ", passedLimit);
+  console.info("passed limit: ", limit);
+  db.getLatest(limit).then(function (items) {
     console.info('The promise was fulfilled with items!', items);
     res.status(200).send({
       success: 'true',

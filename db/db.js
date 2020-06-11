@@ -103,10 +103,10 @@ function myData(difficulty, categoriesQ) {
     // return matchingRecipes;
 }
 
-async function  getLatest() {
+async function  getLatest(limit) {
     return new Promise(function(resolve, reject) {
 
-        dbCollection.find().limit(-1).sort({ $natural: -1 }).limit(5).toArray((error, result) => {
+        dbCollection.find().limit(-1).sort({ $natural: -1 }).limit(limit).toArray((error, result) => {
             if (error) reject(error);
             console.log(result);
             resolve(result);
